@@ -1,6 +1,5 @@
 package com.chatbot.model.dto;
 
-import com.chatbot.model.entity.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
