@@ -11,7 +11,6 @@ import com.chatbot.model.entity.Message;
 import com.chatbot.model.entity.User;
 import com.chatbot.repository.ChatRepository;
 import com.chatbot.repository.MessageRepository;
-import com.chatbot.repository.BotResponseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +29,6 @@ public class ChatService {
 
     @Autowired
     private MessageRepository messageRepository;
-
-    @Autowired
-    private BotResponseRepository botResponseRepository;
 
     public ChatResponse createChat(CreateChatRequest request, User user) {
         log.info("Creating chat for user: {}", user.getUsername());
@@ -115,7 +111,7 @@ public class ChatService {
     }
 
     private ChatResponse mapToChatResponse(Chat chat) {
-        int messageCount = chat.getMessages() != null ? chat.getMessages().size() : 0;
+        int messageCount = messageRepository.countByChatId(chat.getId());
         return ChatResponse.builder()
                 .id(chat.getId())
                 .title(chat.getTitle())
